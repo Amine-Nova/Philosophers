@@ -4,7 +4,9 @@ LIBRARY = philo.h
 
 SRCS =	philo.c \
 		check_error.c \
-		function.c 
+		function.c \
+		utils.c \
+		main.c 
 
 CC = gcc
 
