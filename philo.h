@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:10 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/13 17:29:58 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/15 21:36:31 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		th;
+	size_t			time_start;
 	int				number_time_philo_eat;
+	size_t			last_time_eat;
 	struct s_data	*data;
 }	t_philo;
 
@@ -39,6 +41,7 @@ typedef struct s_data
 	int				number_of_times_each_philosopher_must_eat;
 	size_t			first_time;
 	t_philo			*philos;
+	pthread_mutex_t print;
 	pthread_mutex_t	*forks;
 }	t_data;
 
@@ -52,5 +55,6 @@ void	creat_mutex(t_data *data);
 size_t	count_time(void);
 void	sleeping(size_t i, int j);
 void	routine(t_philo	*philo);
-
+int		is_death(t_data *data);
+void	routine2(t_philo *philo);
 #endif 
