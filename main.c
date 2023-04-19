@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:31:19 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/18 22:19:01 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:30:57 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	main(int ac, char **av)
 {
 	t_data	*data;
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 1;
@@ -32,7 +32,7 @@ int	main(int ac, char **av)
 	while (1)
 	{
 		i = is_death(data);
-		if(i == 1)
+		if (i == 1)
 			break ;
 	}
 }

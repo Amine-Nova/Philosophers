@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:37:13 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/18 21:47:49 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/19 19:36:29 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	taken_fork(t_philo *philo)
 		- philo->data->first_time, philo->id + 1);
 	pthread_mutex_unlock(&philo->data->print);
 	time_to_eat(philo);
+	pthread_mutex_lock(&philo->data->races);
 	philo->last_time_eat = count_time();
+	pthread_mutex_unlock(&philo->data->races);
 	sleeping(count_time(), philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->data->forks[philo->id]);
 	pthread_mutex_unlock(&philo->data->forks[(philo->id + 1)

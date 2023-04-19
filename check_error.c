@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:02 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/15 23:31:37 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/19 00:59:04 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_error(char **av)
 {
 	int	i;
 	int	j;
-	int q;
+	int	q;
 
 	i = 0;
 	q = 1;
@@ -37,7 +37,7 @@ int	check_error(char **av)
 		if (q == 0)
 			return (0);
 	}
-	return(1);
+	return (1);
 }
 
 int	exit_error(void)

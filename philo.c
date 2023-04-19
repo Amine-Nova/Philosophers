@@ -6,16 +6,16 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:05 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/18 22:03:58 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:39:32 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void creat_mutex(t_data *data)
+void	creat_mutex(t_data *data)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = data->number_of_philosophers;
@@ -27,12 +27,15 @@ void creat_mutex(t_data *data)
 	}
 }
 
-void *thread(void *arg)
+void	*thread(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+
+	pthread_mutex_lock(&philo->data->races);
 	philo->number_time_philo_eat = 0;
+	pthread_mutex_unlock(&philo->data->races);
 	pthread_mutex_init(&philo->data->print, NULL);
 	pthread_mutex_init(&philo->data->races, NULL);
 	while (1)
@@ -40,20 +43,22 @@ void *thread(void *arg)
 	return (EXIT_SUCCESS);
 }
 
-void routine(t_philo *philo)
+void	routine(t_philo *philo)
 {
 	if ((philo->id + 1) % 2 == 0)
 		usleep(500);
 	is_thinking(philo);
 	taken_fork(philo);
+	pthread_mutex_lock(&philo->data->races);
 	philo->number_time_philo_eat++;
+	pthread_mutex_unlock(&philo->data->races);
 	is_sleeping(philo);
 }
 
 void	creat_thread(t_data *data)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = data->number_of_philosophers;
 	j = 0;
@@ -71,18 +76,22 @@ void	creat_thread(t_data *data)
 	j = 0;
 	while (j < i)
 		pthread_mutex_destroy(&data->forks[j++]);
-	while(j < i)
+	while (j < i)
 		pthread_detach(data->philos[j++].th);
 }
 
-int is_death(t_data *data)
+int	is_death(t_data *data)
 {
-	int i;
+	int	j;
 
-	i = 0;
+	j = 0;
+	if(data->number_of_philosophers % 2 == 0)
+		j = 1;
+	if(data->number_of_philosophers % 2 == 1)
+		j = 2;
 	pthread_mutex_lock(&data->races);
 	if (data->number_of_times_each_philosopher_must_eat
-			== data->philos[data->number_of_philosophers - 1].number_time_philo_eat)
+		== data->philos[data->number_of_philosophers - j].number_time_philo_eat)
 	{
 		pthread_mutex_unlock(&data->races);
 		pthread_mutex_lock(&data->print);
@@ -90,13 +99,11 @@ int is_death(t_data *data)
 	}
 	if (count_time() - data->philos->last_time_eat >= data->time_to_die)
 	{
-		if (count_time() - data->philos->last_time_eat >= data->time_to_die)
-		{
-			pthread_mutex_unlock(&data->races);
-			pthread_mutex_lock(&data->print);
-			printf("%lu %d died\n", count_time() - data->first_time, data->philos->id + 1);
-			return (1);
-		}
+		pthread_mutex_unlock(&data->races);
+		pthread_mutex_lock(&data->print);
+		printf("%lu %d died\n", count_time()
+			- data->first_time, data->philos->id + 1);
+		return (1);
 	}
 	pthread_mutex_unlock(&data->races);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:10 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/18 22:18:52 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:32:01 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ typedef struct s_data
 	int				number_of_times_each_philosopher_must_eat;
 	size_t			first_time;
 	t_philo			*philos;
-	pthread_mutex_t print;
-	pthread_mutex_t races;
+	pthread_mutex_t	print;
+	pthread_mutex_t	races;
+	pthread_mutex_t	races1;
 	pthread_mutex_t	*forks;
 }	t_data;
 
