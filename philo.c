@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:05 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/19 18:39:32 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:11:26 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	*thread(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-
 	pthread_mutex_lock(&philo->data->races);
 	philo->number_time_philo_eat = 0;
 	pthread_mutex_unlock(&philo->data->races);
@@ -49,6 +48,7 @@ void	routine(t_philo *philo)
 		usleep(500);
 	is_thinking(philo);
 	taken_fork(philo);
+	time_to_eat(philo);
 	pthread_mutex_lock(&philo->data->races);
 	philo->number_time_philo_eat++;
 	pthread_mutex_unlock(&philo->data->races);
@@ -85,9 +85,9 @@ int	is_death(t_data *data)
 	int	j;
 
 	j = 0;
-	if(data->number_of_philosophers % 2 == 0)
+	if (data->number_of_philosophers % 2 == 0)
 		j = 1;
-	if(data->number_of_philosophers % 2 == 1)
+	if (data->number_of_philosophers % 2 == 1)
 		j = 2;
 	pthread_mutex_lock(&data->races);
 	if (data->number_of_times_each_philosopher_must_eat
