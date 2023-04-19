@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:05 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/19 21:11:26 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:37:08 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ void	*thread(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->data->races);
-	philo->number_time_philo_eat = 0;
-	pthread_mutex_unlock(&philo->data->races);
+	if (philo->data->number_of_philosophers != 1)
+	{	
+		pthread_mutex_lock(&philo->data->races);
+		philo->number_time_philo_eat = 0;
+		pthread_mutex_unlock(&philo->data->races);
+	}
 	pthread_mutex_init(&philo->data->print, NULL);
 	pthread_mutex_init(&philo->data->races, NULL);
 	while (1)
@@ -48,7 +51,6 @@ void	routine(t_philo *philo)
 		usleep(500);
 	is_thinking(philo);
 	taken_fork(philo);
-	time_to_eat(philo);
 	pthread_mutex_lock(&philo->data->races);
 	philo->number_time_philo_eat++;
 	pthread_mutex_unlock(&philo->data->races);
@@ -60,6 +62,10 @@ void	creat_thread(t_data *data)
 	int	i;
 	int	j;
 
+	if (data->number_of_philosophers % 2 == 0)
+		data->prime = 1;
+	if (data->number_of_philosophers % 2 == 1)
+		data->prime = 2;
 	i = data->number_of_philosophers;
 	j = 0;
 	data->philos = malloc(sizeof(t_philo) * i);
@@ -82,16 +88,11 @@ void	creat_thread(t_data *data)
 
 int	is_death(t_data *data)
 {
-	int	j;
-
-	j = 0;
-	if (data->number_of_philosophers % 2 == 0)
-		j = 1;
-	if (data->number_of_philosophers % 2 == 1)
-		j = 2;
 	pthread_mutex_lock(&data->races);
 	if (data->number_of_times_each_philosopher_must_eat
-		== data->philos[data->number_of_philosophers - j].number_time_philo_eat)
+		== data->philos[data->number_of_philosophers
+			- data->prime].number_time_philo_eat
+		&& data->number_of_times_each_philosopher_must_eat != -1)
 	{
 		pthread_mutex_unlock(&data->races);
 		pthread_mutex_lock(&data->print);
@@ -99,6 +100,8 @@ int	is_death(t_data *data)
 	}
 	if (count_time() - data->philos->last_time_eat >= data->time_to_die)
 	{
+		if (data->number_of_philosophers == 1)
+			sleeping(count_time(), data->time_to_die);
 		pthread_mutex_unlock(&data->races);
 		pthread_mutex_lock(&data->print);
 		printf("%lu %d died\n", count_time()
