@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:31:19 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/15 03:27:22 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/18 22:19:01 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ int	main(int ac, char **av)
 {
 	t_data	*data;
 	int i;
+	int j;
 
 	i = 0;
+	j = 1;
 	data = malloc(sizeof(t_data));
 	if (ac < 5 || ac > 6)
 		exit_error();
-	check_error(av);
+	j = check_error(av);
+	if (j == 0)
+		return (0);
 	store_value(data, av);
 	creat_mutex(data);
 	creat_thread(data);
@@ -29,6 +33,6 @@ int	main(int ac, char **av)
 	{
 		i = is_death(data);
 		if(i == 1)
-			return(0);
+			break ;
 	}
 }

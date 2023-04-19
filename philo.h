@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:10 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/15 21:36:31 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/18 22:18:52 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,21 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				number_of_philosophers;
-	int				time_to_die;
+	size_t			time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
 	size_t			first_time;
 	t_philo			*philos;
 	pthread_mutex_t print;
+	pthread_mutex_t races;
 	pthread_mutex_t	*forks;
 }	t_data;
 
-void	exit_error(void);
-void	check_error(char **av);
+int		exit_error(void);
+int		check_error(char **av);
 size_t	fun_strlen(char *str);
-int		ft_atoi(const char *str);
+size_t	ft_atoi(const char *str);
 void	store_value(t_data *data, char **av);
 void	creat_thread(t_data *data);
 void	creat_mutex(t_data *data);
@@ -56,5 +57,9 @@ size_t	count_time(void);
 void	sleeping(size_t i, int j);
 void	routine(t_philo	*philo);
 int		is_death(t_data *data);
-void	routine2(t_philo *philo);
+void	time_to_eat(t_philo *philo);
+void	is_thinking(t_philo *philo);
+void	taken_fork(t_philo *philo);
+void	is_sleeping(t_philo *philo);
+int		have_eat(t_data *data);
 #endif 

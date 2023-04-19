@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:31:45 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/13 17:33:25 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/17 23:42:21 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ size_t	count_time(void)
 
 void	sleeping(size_t i, int j)
 {
-	size_t	l;
-
-	l = 0;
 	while (1)
 	{
 		if (count_time() >= i + j)

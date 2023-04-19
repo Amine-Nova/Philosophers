@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:07 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/04 19:32:02 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/18 18:11:35 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ size_t	fun_strlen(char *str)
 	return (j);
 }
 
-int	ft_atoi(const char *str)
+size_t	ft_atoi(const char *str)
 {
-	int	a;
-	int	b;
-	int	c;
+	size_t	a;
+	size_t	b;
+	size_t	c;
 
 	a = 0;
 	b = 1;
