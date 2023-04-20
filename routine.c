@@ -6,11 +6,23 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:37:13 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/19 21:18:45 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/20 02:31:38 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	routine(t_philo *philo)
+{
+	if ((philo->id + 1) % 2 == 0)
+		usleep(500);
+	is_thinking(philo);
+	taken_fork(philo);
+	pthread_mutex_lock(&philo->data->races);
+	philo->number_time_philo_eat++;
+	pthread_mutex_unlock(&philo->data->races);
+	is_sleeping(philo);
+}
 
 void	time_to_eat(t_philo *philo)
 {

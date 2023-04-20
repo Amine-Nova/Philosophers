@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:10 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/19 21:27:58 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/20 02:48:50 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data
 	int				number_of_philosophers;
 	size_t			time_to_die;
 	int				prime;
+	int				l;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
@@ -49,6 +50,7 @@ typedef struct s_data
 }	t_data;
 
 int		exit_error(void);
+void	store_all(t_data *data, char **av);
 int		check_error(char **av);
 size_t	fun_strlen(char *str);
 size_t	ft_atoi(const char *str);
@@ -64,4 +66,5 @@ void	is_thinking(t_philo *philo);
 void	taken_fork(t_philo *philo);
 void	is_sleeping(t_philo *philo);
 int		have_eat(t_data *data);
+int		is_death2(t_data *data);
 #endif 

@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:02 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/19 00:59:04 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/20 02:20:22 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	check_error(char **av)
 			av[i][j] != '+' && av[i][j] != ' '))
 				q = exit_error();
 		if (q == 0)
-			return (0);
+			return (1);
 	}
-	return (1);
+	return (0);
 }
 
 int	exit_error(void)

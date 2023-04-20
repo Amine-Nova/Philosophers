@@ -17,10 +17,10 @@ OBJ = ${SRCS:.c=.o}
 
 all : $(NAME)
 
-%.o : %.c 
-	$(CC) $(CFLAGS) -c $^ -o $@
+%.o : %.c $(LIBRARY)
+	$(CC) -c $(CFLAGS) $< -o $@
 
-$(NAME) : $(OBJ) 
+$(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $@
 
 clean :
