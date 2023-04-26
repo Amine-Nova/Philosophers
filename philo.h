@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: abenmous <abenmous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:10 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/20 02:48:50 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:35:40 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,5 @@ void	taken_fork(t_philo *philo);
 void	is_sleeping(t_philo *philo);
 int		have_eat(t_data *data);
 int		is_death2(t_data *data);
+void	free_stuff(t_data *data);
 #endif 

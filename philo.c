@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: abenmous <abenmous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:05 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/20 02:32:00 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:36:48 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	is_death(t_data *data)
 	{
 		pthread_mutex_unlock(&data->races);
 		pthread_mutex_lock(&data->print);
+		free_stuff(data);
 		return (1);
 	}
 	i = is_death2(data);
@@ -105,6 +106,7 @@ int	is_death2(t_data *data)
 			pthread_mutex_unlock(&data->races);
 			printf("%lu %d died\n", count_time()
 				- data->first_time, data->philos->id + 1);
+			free_stuff(data);
 			return (1);
 		}
 	}
