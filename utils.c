@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenmous <abenmous@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: abenmous <abenmous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:31:45 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/20 02:50:30 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:38:21 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,19 @@ void	sleeping(size_t i, int j)
 			break ;
 		usleep(100);
 	}
+}
+
+void	printing(t_philo *philo, char *s)
+{
+	pthread_mutex_lock(&philo->data->r1);
+	if (philo->data->br == 1)
+	{
+		pthread_mutex_unlock(&philo->data->r1);
+		pthread_mutex_lock(&philo->data->print);
+		printf("%ld %d %s\n", count_time()
+			- philo->data->first_time, philo->id + 1, s);
+		pthread_mutex_unlock(&philo->data->print);
+		pthread_mutex_lock(&philo->data->r1);
+	}
+	pthread_mutex_unlock(&philo->data->r1);
 }

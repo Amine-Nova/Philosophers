@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:10 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/26 21:35:40 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:03:07 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		th;
-	size_t			time_start;
 	int				number_time_philo_eat;
 	size_t			last_time_eat;
 	struct s_data	*data;
@@ -37,7 +36,7 @@ typedef struct s_data
 	int				number_of_philosophers;
 	size_t			time_to_die;
 	int				prime;
-	int				l;
+	int				i;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
@@ -45,8 +44,9 @@ typedef struct s_data
 	t_philo			*philos;
 	pthread_mutex_t	print;
 	pthread_mutex_t	races;
-	pthread_mutex_t	races1;
+	pthread_mutex_t	r1;
 	pthread_mutex_t	*forks;
+	int				br;
 }	t_data;
 
 int		exit_error(void);
@@ -63,9 +63,9 @@ void	routine(t_philo	*philo);
 int		is_death(t_data *data);
 void	time_to_eat(t_philo *philo);
 void	is_thinking(t_philo *philo);
-void	taken_fork(t_philo *philo);
+void	taken_fork(t_philo **philo);
 void	is_sleeping(t_philo *philo);
-int		have_eat(t_data *data);
 int		is_death2(t_data *data);
 void	free_stuff(t_data *data);
+void	printing(t_philo *philo, char *s);
 #endif 

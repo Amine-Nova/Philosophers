@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:31:19 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/26 21:40:27 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:56:16 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,17 @@ void	store_all(t_data *data, char **av)
 int	main(int ac, char **av)
 {
 	t_data	*data;
-	int		i;
 
-	i = 0;
 	data = malloc(sizeof(t_data));
+	data->i = 0;
 	if (ac < 5 || ac > 6)
 	{
 		free(data);
 		printf("error\n");
 		return (1);
 	}
-	i = check_error(av);
-	if (i == 1)
+	data->i = check_error(av);
+	if (data->i == 1)
 	{
 		free(data);
 		return (1);
@@ -41,10 +40,11 @@ int	main(int ac, char **av)
 	store_all(data, av);
 	while (1)
 	{
-		i = is_death(data);
-		if (i == 1)
+		data->i = is_death(data);
+		if (data->i == 1)
 			break ;
 	}
+	free_stuff(data);
 	return (0);
 }
 
@@ -55,9 +55,12 @@ void	free_stuff(t_data *data)
 	i = -1;
 	while (++i < data->number_of_philosophers)
 	{
+		pthread_join(data->philos[i].th, NULL);
 		pthread_mutex_destroy(&data->forks[i]);
-		pthread_detach(data->philos[i].th);
 	}
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->r1);
+	pthread_mutex_destroy(&data->races);
 	free(data->philos);
 	free(data->forks);
 	free(data);
