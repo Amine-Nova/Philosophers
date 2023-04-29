@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:10 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/29 13:50:41 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/29 22:50:28 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ typedef struct s_data
 {
 	int				number_of_philosophers;
 	size_t			time_to_die;
-	int				prime;
-	int				i;
-	int				j;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				br;
+	int				prime;
 	int				number_of_times_each_philosopher_must_eat;
 	size_t			first_time;
 	t_philo			*philos;
@@ -47,17 +46,16 @@ typedef struct s_data
 	pthread_mutex_t	races;
 	pthread_mutex_t	r1;
 	pthread_mutex_t	*forks;
-	int				br;
 }	t_data;
 
 int		exit_error(void);
-void	store_all(t_data *data, char **av);
+int		store_all(t_data *data, char **av);
 int		check_error(char **av);
 size_t	fun_strlen(char *str);
 size_t	ft_atoi(const char *str);
 void	store_value(t_data *data, char **av);
-void	creat_thread(t_data *data);
-void	creat_mutex(t_data *data);
+int		creat_thread(t_data *data);
+int		creat_mutex(t_data *data);
 size_t	count_time(void);
 void	sleeping(t_philo *philo, size_t i, int j);
 void	routine(t_philo	*philo);
