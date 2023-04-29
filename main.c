@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:31:19 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/28 20:56:16 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/29 13:50:25 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	store_all(t_data *data, char **av)
 int	main(int ac, char **av)
 {
 	t_data	*data;
+	int			d;
 
 	data = malloc(sizeof(t_data));
 	data->i = 0;
@@ -38,10 +39,10 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	store_all(data, av);
+	d = 1;
 	while (1)
 	{
-		data->i = is_death(data);
-		if (data->i == 1)
+		if (is_death(data, d) == 1)
 			break ;
 	}
 	free_stuff(data);
@@ -53,6 +54,8 @@ void	free_stuff(t_data *data)
 	int	i;
 
 	i = -1;
+	if (data->number_of_philosophers == 1)
+		pthread_mutex_unlock(&data->forks[0]);
 	while (++i < data->number_of_philosophers)
 	{
 		pthread_join(data->philos[i].th, NULL);

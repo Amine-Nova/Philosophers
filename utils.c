@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:31:45 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/28 20:38:21 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/29 12:40:31 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,17 @@ size_t	count_time(void)
 	return (tm);
 }
 
-void	sleeping(size_t i, int j)
+void	sleeping(t_philo *philo, size_t i, int j)
 {
 	while (1)
 	{
-		if (count_time() >= i + j)
+		pthread_mutex_lock(&philo->data->r1);
+		if (count_time() >= i + j || philo->data->br == 0)
+		{
+			pthread_mutex_unlock(&philo->data->r1);
 			break ;
+		}
+		pthread_mutex_unlock(&philo->data->r1);
 		usleep(100);
 	}
 }

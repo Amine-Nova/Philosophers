@@ -6,7 +6,7 @@
 /*   By: abenmous <abenmous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:37:10 by abenmous          #+#    #+#             */
-/*   Updated: 2023/04/28 18:03:07 by abenmous         ###   ########.fr       */
+/*   Updated: 2023/04/29 13:50:41 by abenmous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data
 	size_t			time_to_die;
 	int				prime;
 	int				i;
+	int				j;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
@@ -58,14 +59,16 @@ void	store_value(t_data *data, char **av);
 void	creat_thread(t_data *data);
 void	creat_mutex(t_data *data);
 size_t	count_time(void);
-void	sleeping(size_t i, int j);
+void	sleeping(t_philo *philo, size_t i, int j);
 void	routine(t_philo	*philo);
-int		is_death(t_data *data);
+int		is_death(t_data *data, int d);
 void	time_to_eat(t_philo *philo);
 void	is_thinking(t_philo *philo);
-void	taken_fork(t_philo **philo);
+void	taken_fork(t_philo *philo);
 void	is_sleeping(t_philo *philo);
 int		is_death2(t_data *data);
 void	free_stuff(t_data *data);
 void	printing(t_philo *philo, char *s);
+int		check_last(t_data *data, int d);
+int		ft_strcmp(char *s1, char *s2);
 #endif 

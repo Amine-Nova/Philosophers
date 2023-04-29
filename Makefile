@@ -11,7 +11,7 @@ SRCS =	philo.c \
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=thread
 
 OBJ = ${SRCS:.c=.o}
 
